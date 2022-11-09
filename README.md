@@ -31,6 +31,62 @@
 <img width="100%" src="https://user-images.githubusercontent.com/107744382/200728047-a478e614-05d5-49b1-9c9b-c092c66bfb28.png"/>
 
 ### 📅 달력 및 일정관리 게시판
-
+-
+-
+- 코드샘플
+```
+@Controller
+public class MyMemoController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(MyMemoController.class);
+	
+	@Autowired
+	MemoService memoService;
+	
+	//메모 페이징으로
+	@RequestMapping(value="/mystudy/memo.do", method= {RequestMethod.GET, RequestMethod.POST} )
+	public String memolist(
+			Model model
+			,HttpServletRequest request
+			,@ModelAttribute MemoDTO memoDTO
+			) {
+		logger.info("memolist 실행");
+		HttpSession session = request.getSession();
+		
+		int userkey = (Integer) session.getAttribute("userKey");
+		logger.info("userkey"+userkey);
+		
+		int viewPage = memoDTO.getViewPage();
+		int countPerPage = memoDTO.getCountPerPage();
+		
+		int total = memoService.selectlistCount(userkey);
+		int totalPage = (int) Math.ceil( (double)total/ countPerPage );
+		
+		int startIdx = ( (viewPage - 1) * countPerPage ) + 1;
+		int endIdx =  viewPage * countPerPage;
+		
+		memoDTO.setStartIdx(startIdx);
+		memoDTO.setEndIdx(endIdx);
+		memoDTO.setUserkey(userkey);
+		
+		logger.info("페이징용>>"+startIdx+","+endIdx);
+		
+		logger.info(">>"+memoDTO.getUserkey());
+		
+		List<MemoDTO> list = memoService.selectPagingList(memoDTO);		
+		logger.info("리스트 사이즈: "+list.size());
+		
+		model.addAttribute("userkey", userkey);
+		model.addAttribute("viewPage", viewPage);
+		model.addAttribute("countPerPage", countPerPage);
+		
+		model.addAttribute("total", total);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("resultList",list);
+		
+		return "memo";
+	}
+}  
+```
 ### 📋 메모
 
