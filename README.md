@@ -1,6 +1,7 @@
 # NullStudy_Team_Project
 > 스프링 + JSP 프로젝트 입니다.
-
+<img width="50%" src="https://user-images.githubusercontent.com/107744382/200740858-44e7cfeb-2b8f-4c46-8127-51b26ca4c10f.png"/>
+<img width="50%" src="https://user-images.githubusercontent.com/107744382/200740869-fb8f9179-2c37-4831-8dd8-6b0cae355653.png"/>
 ## 목적
 - 웹개발 연습
 - 학습 내용 확인 및 구현
