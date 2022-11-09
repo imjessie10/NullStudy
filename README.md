@@ -27,4 +27,4 @@
 ## 📍나의 주요기능
 
 
-
+<img width="50%" src="https://user-images.githubusercontent.com/107744382/200727672-1678e004-5d2e-4d05-b6a4-f703e835ef8b.png"/>
