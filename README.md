@@ -34,12 +34,12 @@
 -
 -
 - 코드샘플
-```
-@Controller
-public class MyMemoController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(MyMemoController.class);
-	
+
+    @Controller
+    public class MyMemoController {
+    	
+    	private static final Logger logger = LoggerFactory.getLogger(MyMemoController.class);
+    	
 	@Autowired
 	MemoService memoService;
 	
@@ -87,6 +87,6 @@ public class MyMemoController {
 		return "memo";
 	}
 }  
-```
+
 ### 📋 메모
 
