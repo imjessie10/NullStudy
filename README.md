@@ -38,7 +38,59 @@
    * 해당 날짜에 마우스호버시 전체개수 출력-ajax 구현
 * 달력
    * JAVA로 구현
-* 코드샘플
+```controller
+@RequestMapping(value = "/mystudy/calCountAjax.do", method = {RequestMethod.GET, RequestMethod.POST})
+@ResponseBody public String calCountAjax(
+    Model model
+    ,@RequestParam String m_schedule_date
+    ,@ModelAttribute ScheduleDTO sdto
+    , HttpServletRequest request
+    ) {
+  logger.info("아작스 통신");
+
+  //유저키 세션으로 잡아오기
+  HttpSession session = request.getSession();
+  Integer userkey = (Integer) session.getAttribute("userKey");
+  logger.info(">> calCountAjax--userkey"+userkey);
+  sdto.setUserkey(userkey);
+  sdto.setM_schedule_date(m_schedule_date);
+
+  int count = scheduleService.calCount(sdto);
+  logger.info(">> calCountAjax--count"+count);
+
+  return count+"";
+}
+```
+
+```script
+$(function(){
+  $(".countView").hover(function(){
+
+    var aObj = $(this);
+    var year = $(".y").text().trim();
+    var month = $(".m").text().trim();
+    var date = $(this).text().trim();
+    var m_schedule_date = year + "-" + isTwo(month) + "-" + isTwo(date);
+
+    $.ajax({
+      method:"post",
+      url:"/project/mystudy/calCountAjax.do",
+      data: {"m_schedule_date" : m_schedule_date },
+      dataType: "text",
+      async:false,
+      success:function(val){
+        aObj.after("<div class='cPreview'>"+val+"</div>");
+        console.log(val);
+      },
+      error:function(){
+        alert("서버통신실패xxx");
+      }
+    });
+  },function(){
+    $(".cPreview").remove();	//마우스가 나가면 해당엘리먼트 삭제
+  });
+});
+```
 
 ### 📋 메모
 
